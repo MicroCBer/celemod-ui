@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" window-frame="solid-with-shadow">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>CeleMod</title>
+</head>
+
+<body>
+  <div class="dummy"></div>
+  <div role=window-caption>
+    CeleMod
+  </div>
+  <span class="ctrl">
+    <button role=window-minimize>
+      <icon|minus />
+    </button>
+    <button class="close" role=window-close>
+      <icon|cancel />
+    </button>
+  </span>
+
+  <div id="root"></div>
+  <link rel="stylesheet" href="./index.scss">
+  <script>
+    Window.this.isResizable = false;
+    const urlToStyleElementMap = new Map();
+    setTimeout(() => {
+      const linkElements = document.querySelectorAll('link[rel="stylesheet"]');
+      linkElements.forEach((linkElement) => {
+        const url = linkElement.getAttribute('href');
+        const styleElement = document.createElement('style');
+        linkElement.parentElement.appendChild(styleElement);
+        linkElement.remove()
+        urlToStyleElementMap.set(url, styleElement);
+      });
+    }, 100);
+
+    async function updateStyles() {
+      for (const [url, styleElement] of urlToStyleElementMap.entries()) {
+        const response = await fetch(url + "?" + Math.random());
+        if (response.status === 200) {
+          const cssText = await response.text();
+          const styleElement2 = document.createElement('style');
+          styleElement2.innerHTML = cssText;
+          styleElement.parentElement.appendChild(styleElement2);
+          styleElement.remove()
+          urlToStyleElementMap.set(url, styleElement2);
+        }
+        else {
+          console.error(`Failed to fetch CSS from ${url}, status code: ${response.status}`);
+        }
+      }
+    }
+
+    console.clear = () => {
+      console.log("------- Cleared --------")
+      updateStyles()
+    }
+
+
+    location.reload = function () {
+      console.log("location.reload");
+      Window.this.load(location.href);
+    };
+
+    document.on("keyup", function (evt) {
+      if (evt.code == "F5") {
+        location.reload();
+      }
+    });
+  </script>
+  <script src="./index.tsx"></script>
+</body>
+
+</html>

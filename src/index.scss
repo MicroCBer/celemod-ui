@@ -1,0 +1,48 @@
+$bg: #131313;
+$bg1: #222222;
+$bg2: #333333;
+$bg3: #444444;
+$fg: rgb(255, 255, 255);
+
+$primary: #8b0000;
+
+html{
+    color: $fg;
+    background: $bg;
+    padding: 0 10px;
+}
+
+
+[role=window-caption]{
+    font-size: 14px;
+    font-weight: 400;
+    color: $fg;
+    padding: 5px 0;
+    margin-bottom: 10px;
+}
+
+.ctrl{
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    button:not(:hover):not(:active){
+        background: transparent;
+        box-shadow: none;
+    }
+
+    button{
+        padding: 0;
+        width: 40px;
+        height: 30px;
+        border-radius: 0;
+
+        &>*{
+            margin-top: 16px;
+        }
+    }
+}
+
+*{
+    font-family: 'Noto Sans SC', 'Noto Sans', 'Microsoft Yahei', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', sans-serif;
+}
