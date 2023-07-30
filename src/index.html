@@ -24,6 +24,16 @@
   <div id="root"></div>
   <link rel="stylesheet" href="./index.scss">
   <script>
+    const script = document.createElement('script');
+    script.innerHTML=`import * as sys from "@sys"
+window.sys = sys
+console.log("sys", sys)`
+    document.head.appendChild(script);
+  </script>
+  <script>
+    class HTMLElement extends Element { }
+
+
     Window.this.isResizable = false;
     const urlToStyleElementMap = new Map();
     setTimeout(() => {

@@ -1,0 +1,140 @@
+@use "../index.scss"as theme;
+
+.mod {
+    // width: 50px;
+    width: 350px;
+    height: 200px;
+
+    // position: relative;
+    // box-sizing: border-box;
+    margin: 20px 0;
+    background: theme.$bg1;
+    overflow: hidden;
+
+    .bg {
+        width: 100%;
+        height: 200px;
+        background-size: cover;
+        background-position: center;
+        transition: background .2s ease-in-out, height .2s ease-in-out;
+
+        img{
+            foreground-size: cover;
+            foreground-position: center center;
+ 
+            width: 100%;
+            height: 200px;
+            margin: 0 auto;
+            display: block;
+        }
+    }
+
+
+    box-shadow: 0 2px 5px #00000040;
+
+    border-radius: 6px;
+
+    .info {
+        bottom: 0;
+        position: absolute;
+        z-index: 1;
+        padding: 15px;
+        width: 100%;
+        
+        &::after{
+            content: "";
+            background-color: unquote(theme.$bg+"aa");
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 90px;
+            z-index: -1;
+        }
+
+        .name {
+            font-size: 16px;
+            font-weight: 600;
+            width: 95%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .author{
+            font-size: 12px;
+            font-weight: 400;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            opacity: 0.6;
+        }
+
+        .other{
+            font-size: 12px;
+            font-weight: 400;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            opacity: 0.8;
+            margin-top: 4px;
+        }
+    }
+
+    .operations {
+        // margin: 15px -5px;
+        position: absolute;
+        top: 90px;
+        z-index: 4;
+        left: 10px;
+        
+
+        transition: opacity .2s ease-in-out, height .2s ease-in-out;
+
+        &>* {
+            margin-right: 10px;
+            border: 1px solid unquote(theme.$bg3+"66");
+            border-radius: 5dip;
+        }
+    }
+
+    &:hover {
+        box-shadow: 0 2px 8px #00000054;
+        background: theme.$bg2;
+
+        .operations {
+            opacity: 1;
+        }
+    }
+
+    &.expanded {
+        height: 400px;
+
+        .operations {
+            opacity: 1;
+        }
+
+        .expanded {
+            height: 230px;
+            margin-top: 100px;
+            opacity: 1;
+        }
+    }
+
+
+}
+
+.mod-list {
+    // position: relative;
+    // bottom: 10px;
+    height: 470px;
+    width: 100vw;
+    overflow-y: auto;
+    flow: repeat(3, 200px);
+    flow-columns: repeat(3, 200px);
+
+    &>* {
+        margin-left: 15px;
+        display: inline-block;
+    }
+}

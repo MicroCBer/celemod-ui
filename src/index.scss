@@ -2,47 +2,114 @@ $bg: #131313;
 $bg1: #222222;
 $bg2: #333333;
 $bg3: #444444;
-$fg: rgb(255, 255, 255);
+$fg: #ffffff;
+$fg1: #d1d1d1;
+$fg2: #bbbbbb;
+$fg3: #aaaaaa;
 
 $primary: #8b0000;
 
-html{
+html {
     color: $fg;
     background: $bg;
     padding: 0 10px;
 }
 
 
-[role=window-caption]{
+
+[role=window-caption] {
     font-size: 14px;
     font-weight: 400;
     color: $fg;
     padding: 5px 0;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    opacity: 0.8;
 }
 
-.ctrl{
-    position: absolute;
+.ctrl {
+    position: fixed;
     top: 0;
     right: 0;
 
-    button:not(:hover):not(:active){
+    button:not(:hover):not(:active) {
         background: transparent;
         box-shadow: none;
     }
 
-    button{
+    button {
         padding: 0;
         width: 40px;
         height: 30px;
         border-radius: 0;
 
-        &>*{
+        &>* {
             margin-top: 16px;
         }
     }
 }
 
-*{
+* {
     font-family: 'Noto Sans SC', 'Noto Sans', 'Microsoft Yahei', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', sans-serif;
+    font-rendering-mode: enhanced;
+}
+
+html,
+body {
+    overflow: hidden;
+}
+
+@set v-scroll-indicator {
+
+    .slider {
+        background: $bg3;
+        margin-left: 0px;
+        border-radius: 10px;
+
+    }
+
+    .base {
+        width: 0px; // full width on hover
+        min-width: 0px; // collapsed size
+
+    }
+
+}
+
+* {
+    vertical-scrollbar: "v-scroll-indicator";
+    horizontal-scrollbar: "v-scroll-indicator";
+}
+
+// loader
+.loader {
+    width: 100vw;
+    background: $bg;
+    padding: 10px;
+}
+
+.loader .bar{
+    height: 4px;
+    border-radius: 5px;
+    position: relative;
+    width: 0%;
+    background-color: #55aaff;
+    animation: progress 2s linear infinite;
+}
+
+@keyframes progress {
+    0% {
+        width: 0vw;
+        transform: translateX(100%);
+        margin-left: 0vw;
+    }
+
+    50% {
+        margin-left: 25vw;
+        width: 50vw;
+    }
+
+    100% {
+        width: 0vw;
+        margin-left: 100vw;
+    }
 }
