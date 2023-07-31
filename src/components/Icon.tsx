@@ -1,5 +1,5 @@
 import { h } from "preact"
 
 export const Icon = ({ name }: { name: string }) => {
-    return <div dangerouslySetInnerHTML={{__html:`<icon|${name} />`}} />
+    return <span className="icon" dangerouslySetInnerHTML={{__html:`<icon|${name} />`}} />
 }

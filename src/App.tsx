@@ -1,38 +1,71 @@
-import { Fragment, h } from "preact";
-import { Button, ModList } from "./components/all"
-import { CategoryEnum, GBMod, getMods } from "./gamebanana";
-import { useEffect, useMemo, useState } from "preact/hooks";
-import { GameSelector } from "./components/all";
-import { callRemote } from "./utils";
+import { Fragment, FunctionComponent, h } from "preact";
+import { useMemo, useState, useEffect } from "preact/hooks";
+import { Icon } from "./components/Icon";
+
+import { Search } from './routes/Search';
+import { Home } from './routes/Home';
+import { memo } from "preact/compat";
+import { Manage } from "./routes/Manage";
+import { Multiplayer } from "./routes/Multiplayer";
 
 
 export default () => {
-    const [gbMods, setGBMods] = useState<GBMod[]>([]);
-    const gamePaths = useMemo(() => callRemote("get_celeste_dirs").split("\n").filter((v: string | null)=>v), [])
+    const pages: {
+        [key: string]: FunctionComponent
+    } = {
+        Search, Home, Manage, Multiplayer
+    }
 
-    const [selectedPath, setSelectedPath] = useState(gamePaths[0]);
+    const pagesEle = useMemo(() => {
+
+    }, [pages])
+
+    const [page, setPage] = useState("Home");
+
+    const [pageElement, setPageElement] = useState<{
+        [key: string]: Element
+    }>({});
+
+    const createPageElement = (pageName: string) => {
+        if (pageElement[pageName])
+            return;
+
+        const ele = h(memo(pages[pageName]), {});
+        setPageElement({
+            ...pageElement,
+            [pageName]: ele
+        } as any);
+    }
 
     useEffect(() => {
-        getMods(1, {
-            category: CategoryEnum.Maps
-        }).then(setGBMods);
-    }, []);
+        createPageElement(page);
+    }, [page]);
+
+    const SidebarButton = ({ onClick, icon, name, title }: any) => {
+        return (<span class={`navBtn ${name === page && "selected"}`} style={{
+        }} onClick={() => {
+            setPage(name);
+        }}>
+            <Icon name={icon} />
+            <span class="title">{title || name}</span>
+        </span>)
+    }
 
     return (
         <Fragment>
-            <GameSelector paths={gamePaths} onSelect={(e:InputEvent)=>{
-                // @ts-ignore
-                e.target.value && setSelectedPath(e.target.value);
-            }} />
-            <h1>Maps</h1>
-            <ModList mods={gbMods} onLoadMore={
-                () => {
-                    console.log("Loading...");
-                    getMods(Math.floor(gbMods.length / 20) + 1, {
-                        category: CategoryEnum.Maps
-                    }).then(m => setGBMods([...gbMods, ...m]))
-                }
-            } modFolder={selectedPath+"/Mods"} />
+            <nav className="sidebar">
+                <SidebarButton icon="home" name="Home" title="主页" />
+                <SidebarButton icon="search" name="Search" title="搜索" />
+                <SidebarButton icon="drive" name="Local" title="管理" />
+                <SidebarButton icon="web" name="Multiplayer" title="联机相关" />
+            </nav>
+            {Object.entries(pageElement).map(([key, value]) => {
+                return <div className="page" style={{
+                    display: key === page ? "block" : "none"
+                }}>
+                    {value}
+                </div>
+            })}
         </Fragment>
     );
 }

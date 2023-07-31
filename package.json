@@ -7,14 +7,18 @@
   "dependencies": {
     "@types/react-window": "^1.8.5",
     "@types/react-window-infinite-loader": "^1.0.6",
+    "immer": ">=9.0",
     "preact": "^10.6.6",
     "react-window": "^1.8.9",
     "react-window-infinite-loader": "^1.0.9",
-    "src": "^1.1.2"
+    "src": "^1.1.2",
+    "zustand": "^4.3.9"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.4",
     "parcel-resolver-ignore": "^2.1.5",
+    "react": ">=16.8",
+    "react-dom": ">=16.8",
     "sass": "^1.64.1",
     "typescript": "^4.6.3"
   },

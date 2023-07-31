@@ -12,7 +12,7 @@
   <div role=window-caption>
     CeleMod
   </div>
-  <span class="ctrl">
+  <span class="win-ctrl">
     <button role=window-minimize>
       <icon|minus />
     </button>
@@ -22,6 +22,15 @@
   </span>
 
   <div id="root"></div>
+  <style>
+    
+* {
+    font-family: 'Noto Sans SC', 'Noto Sans', 'Microsoft Yahei', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', sans-serif;
+    font-rendering-mode: enhanced;
+    scroll-manner: scroll-manner(animation:false);
+}
+
+  </style>
   <link rel="stylesheet" href="./index.scss">
   <script>
     const script = document.createElement('script');
@@ -29,9 +38,10 @@
 window.sys = sys
 console.log("sys", sys)`
     document.head.appendChild(script);
+    eval(`class HTMLElement extends Element { }`)
   </script>
   <script>
-    class HTMLElement extends Element { }
+    
 
 
     Window.this.isResizable = false;
@@ -67,6 +77,7 @@ console.log("sys", sys)`
     console.clear = () => {
       console.log("------- Cleared --------")
       updateStyles()
+      // Window.this.load(location.href);
     }
 
 
